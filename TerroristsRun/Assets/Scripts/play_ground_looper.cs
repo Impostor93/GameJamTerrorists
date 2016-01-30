@@ -22,7 +22,10 @@ public class play_ground_looper : MonoBehaviour {
 
     void LateUpdate()
     {
-        transform.position = player.transform.position + offset;
+
+        var newPosition = transform.position;
+        newPosition.x = player.transform.position.x + offset.x;
+        transform.position = newPosition;
     }
 
     void OnTriggerEnter(Collider other)
@@ -30,7 +33,9 @@ public class play_ground_looper : MonoBehaviour {
         if (other.gameObject.CompareTag("playground"))
         {
             var newX = lengthOfBackground * other.transform.localScale.x;
-            other.transform.position = new Vector3(other.transform.position.x + newX, 0.0f, 0.0f);
+            var newPosition = other.transform.position;
+            newPosition.x += newX;
+            other.transform.position = newPosition;
         }
     }
 }
