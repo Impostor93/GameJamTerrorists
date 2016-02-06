@@ -3,8 +3,8 @@ using System.Collections;
 
 public class move : MonoBehaviour {
 
-    public float speed;
-
+    public float speed = 120;
+    public float jump = 25;
     private Rigidbody rb;
     private Vector3 movement;
     void Start()
@@ -20,13 +20,18 @@ public class move : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            movement = new Vector3(moveHorizontal + speed, 0.0f, moveVertical);
-            rb.AddForce(movement);
+            rb.AddForce(new Vector3(speed, 0, 0));
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            movement = new Vector3(moveHorizontal - speed, 0.0f, moveVertical);
-            rb.AddForce(movement);
+            rb.AddForce(new Vector3(-speed, 0, 0));
+        }
+
+        if (Input.GetKey(KeyCode.Space) && rb.velocity.y < 0.5f && rb.position.y < 15)
+        {
+            rb.AddForce(new Vector3(0, jump, 0),ForceMode.Impulse);
+            Ahmed.anim.SetTrigger("Jump");
+
         }
     }
 }
